@@ -27,5 +27,6 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('comments','CommentsController');
 	Route::resource('roles','RolesController');
 	Route::resource('tasks','TasksController');
+	Route::get('/findProject','TasksController@findProject');
 	Route::resource('users','UsersController');
 });

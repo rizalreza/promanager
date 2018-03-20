@@ -3,9 +3,9 @@
 
 @section('content')
 
-  
+   <center><h2>Company Create</h2></center>
 
-    <div class="col-md-9 col-lg-9 col-sm-9 pull-left">
+    <div class="col-md-8 col-lg-8 col-sm-8 col-md-offset-2 col-lg-offset-2 col-sm-offset-2">
         <form method="post" action="{{route('companies.store')}}">
               {{csrf_field()}}
               <div class="form-group">
@@ -26,7 +26,7 @@
         </form>    
     </div>
 
-    <div class="col-lg-3 col-md-3 col-sm-3 ">
+{{--     <div class="col-lg-3 col-md-3 col-sm-3 ">
          <div class="sidebar-module">
             <h4>Action</h4>
             <ol class="list-unstyled">
@@ -34,7 +34,7 @@
             </ol>
           </div>        
     </div>
-       
+        --}}
 
 
 @endsection

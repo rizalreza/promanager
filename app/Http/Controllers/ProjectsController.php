@@ -21,49 +21,60 @@ class ProjectsController extends Controller
     public function index()
     {
         //
-        if(Auth::check()){
-      
-            $projects = DB::table('projects')->where('user_id', Auth::user()->id )->get();
-            // $projects = Project::where('user_id', Auth::user()->id )->get();
+
+
+        if(Auth::user()->role_id == 1 ){
+            $projects = Project::all();
+
             return view('projects.index',['projects' => $projects]);
+      
+            
+        } else {
+            
+            $projects = DB::table('projects')->where('user_id', Auth::user()->id )->get();
+            return view('projects.index',['projects' => $projects]);
+           // dd($projectAll);
+           
+
         }
 
         return view('auth.login');
     }
 
-    public function adduser(Request $request){
-         //add user to projects 
-         //take a project, add a user to it
-         $project = Project::find($request->input('project_id'));
-        
-         if(Auth::user()->id == $project->user_id){
-          $user = User::where('email', $request->input('email'))->get(); //single record
-         // check if user is already added to the project
+    // public function adduser(Request $request){
+     
 
-         // dd($user);
-         $projectUser = ProjectUser::where('user_id',$user->id)
-                                    ->where('project_id',$project->id)
-                                    ->first();
-        dd($projectUser);
-
-            if($projectUser){
-                // if user already exists, exit 
+    //      $project = Project::find($request->input('project_id'));
         
-                return response()->json(['success' ,  $request->input('email').' is already a member of this project']); 
+    //      if(Auth::user()->id == $project->user_id){
+    //       $user = User::where('email', $request->input('email'))->first(); //single record
+
+    //      $projectUser = DB::table('project_users')
+    //             ->where([
+    //                     ['project_users.user_id','=', $user->id],
+    //                     ['project_users.project_id', '=', $project->id]
+    //                     ])
+    //             ->first();
+    //     // dd($projectUser);
+
+    //         if($projectUser){
+    //             // if user already exists, exit 
+        
+    //             return response()->json(['success' ,  $request->input('email').' is already a member of this project']); 
                
-            }
-            if($user && $project){
-                $project->users()->attach($user->id); 
-                     return response()->json(['success' ,  $request->input('email').' was added to the project successfully']); 
+    //         }
+    //         if($user && $project){
+    //             $project->users()->attach($user->id); 
+    //                  return response()->json(['success' ,  $request->input('email').' was added to the project successfully']); 
                         
-                    }
+    //                 }
                     
-         }
-         return redirect()->route('projects.show', ['project'=> $project->id])
-         ->with('errors' ,  'Error adding user to project');
+    //      }
+    //      return redirect()->route('projects.show', ['project'=> $project->id])
+    //      ->with('errors' ,  'Error adding user to project');
         
          
-     }
+    //  }
 
 
     /**
@@ -120,8 +131,9 @@ class ProjectsController extends Controller
      */
     public function show($id)
     {
-       if(Auth::check()){    
+       if(Auth::check()){ 
 
+       
          $project = DB::table('companies')
                     ->join('projects','companies.id','=','projects.company_id')
                     ->where('projects.id','=', $id)
@@ -195,7 +207,6 @@ class ProjectsController extends Controller
     {
         //
         $delete = Project::find( $project->id);
-        dd($delete);
         if ($delete->delete()) {
             return redirect()->route('projects.index')->with('success', 'Project deleted successfully');
         }
