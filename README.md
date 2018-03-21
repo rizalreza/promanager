@@ -30,9 +30,35 @@ This repo contains an simple Project Management App, that's build with Laravel 5
 
 		php artisan migrate
 
+* Note
+
+Change role_id on users tabel value to 1 for set as Admin, because that default is 3
+
 **Run Application**
 
 	php artisan serve
+
+## Screenshot
+
+* Company Index
+
+![CompanyIndex](https://i.imgur.com/9OCKa3M.png)
+
+* Company detail
+
+![CompanyDetail](https://i.imgur.com/D5aeb94.png)
+
+* Project Index
+
+![ProjectIndex](https://i.imgur.com/qXtOhZ7.png)
+
+* Project Detail
+
+![ProjectDetail](https://i.imgur.com/L8fQwD2.png)
+
+* User Project detail page viewed by admin
+
+![ViewedByAdmin](https://i.imgur.com/m3YzTOZ.png)
 
 
 
