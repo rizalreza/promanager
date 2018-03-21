@@ -20,8 +20,7 @@ class CreateProjectsTable extends Migration
             $table->longText('project_desc')->nullable();
             $table->integer('company_id')->unsigned()->nullable()->index();
             $table->integer('user_id')->unsigned();
-            $table->integer('days')->unsigned()->nullable();
-            
+            $table->date('project_deadline');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->timestamps();

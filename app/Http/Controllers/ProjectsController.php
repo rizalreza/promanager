@@ -10,6 +10,7 @@ use App\User;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ProjectsController extends Controller
 {
@@ -40,41 +41,6 @@ class ProjectsController extends Controller
 
         return view('auth.login');
     }
-
-    // public function adduser(Request $request){
-     
-
-    //      $project = Project::find($request->input('project_id'));
-        
-    //      if(Auth::user()->id == $project->user_id){
-    //       $user = User::where('email', $request->input('email'))->first(); //single record
-
-    //      $projectUser = DB::table('project_users')
-    //             ->where([
-    //                     ['project_users.user_id','=', $user->id],
-    //                     ['project_users.project_id', '=', $project->id]
-    //                     ])
-    //             ->first();
-    //     // dd($projectUser);
-
-    //         if($projectUser){
-    //             // if user already exists, exit 
-        
-    //             return response()->json(['success' ,  $request->input('email').' is already a member of this project']); 
-               
-    //         }
-    //         if($user && $project){
-    //             $project->users()->attach($user->id); 
-    //                  return response()->json(['success' ,  $request->input('email').' was added to the project successfully']); 
-                        
-    //                 }
-                    
-    //      }
-    //      return redirect()->route('projects.show', ['project'=> $project->id])
-    //      ->with('errors' ,  'Error adding user to project');
-        
-         
-    //  }
 
 
     /**
@@ -111,7 +77,7 @@ class ProjectsController extends Controller
                             'project_desc'=> $request -> input('project_desc'),
                             'company_id'=> $request -> input('company_id'),
                             'user_id'=>Auth::user()->id,
-                            'days'=> $request ->input('days')
+                            'project_deadline'=> $request ->input('project_deadline')
                         ]);
 
             if($ProjectStore){
@@ -138,13 +104,18 @@ class ProjectsController extends Controller
                     ->join('projects','companies.id','=','projects.company_id')
                     ->where('projects.id','=', $id)
                     ->first();
+
+         $tasks = DB::table('tasks')
+                    ->where('project_id', $id)
+                    ->get();
+
      
          $query = DB::table('users')
                 ->join('comments','users.id','=','comments.user_id')
                 ->where('comments.commentable_id','=', $id)
                 ->get();
 
-            return view('projects.show', ['project'=>$project,'query'=>$query]);
+            return view('projects.show', ['tasks'=>$tasks,'project'=>$project,'query'=>$query]);
 
 
         }
@@ -184,11 +155,13 @@ class ProjectsController extends Controller
     {
         //
 
+
         $projectUpdate = Project::where('id', $project->id)
                          ->update([
                                    'project_name' => $request->input('project_name'),
                                    'project_desc' => $request->input('project_desc'),
-                                   'company_id' => $request->input('company_id')
+                                   'company_id' => $request->input('company_id'),
+                                   'project_deadline' => $request->input('project_deadline')
                                   ]);
                                   
         if($projectUpdate){
@@ -212,4 +185,6 @@ class ProjectsController extends Controller
         }
 
         return back()->withInput->with('errors', 'Project could not be deleted');
-    } }
+    } 
+
+}

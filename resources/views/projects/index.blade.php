@@ -12,7 +12,8 @@
 
           <ul class="list-group">
             @foreach($projects as $project)
-            <li class="list-group-item"><a href="/projects/{{$project->id}}"> {{$project->project_name}} </a></li>
+            <li class="list-group-item"><strong><a style="text-decoration: none;" href="/projects/{{$project->id}}"> {{$project->project_name}} </a></strong>
+            <p class="pull-right"><strong> Deadline  : </strong>{{Carbon\Carbon::parse($project->project_deadline)->diffForHumans()}} </p><br>   </li>
             @endforeach
           </ul>
 

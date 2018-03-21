@@ -10,11 +10,21 @@
         <div class="panel-heading">Companies <a href="/companies/create" class="btn btn-default btn-xs pull-right"> Add new company</a></div>
         <div class="panel-body">
 
-          <ul class="list-group">
-            @foreach($companies as $company)
-            <li class="list-group-item"><a href="/companies/{{$company->id}}"> {{$company->company_name}} </a></li>
-            @endforeach
-          </ul>
+        @foreach($companies as $company)
+          <div class="panel panel-info">
+            <div class="panel-heading"><strong><a style="text-decoration: none;" href="/companies/{{$company->id}}">{{$company->company_name}} </a></strong></div>
+            <div class="panel-body">
+           
+              <?php $queryProject = DB::table('projects')->where('company_id', $company->id)->get();?>
+                <strong><p>Project :</p></strong>
+                @foreach($queryProject as $project)
+                  <ul> 
+                     <li> {{$project->project_name}} <p class="pull-right">{{Carbon\Carbon::parse($project->project_deadline)->diffForHumans()}} </p></li>
+                   </ul>
+                @endforeach
+            </div>
+          </div>
+        @endforeach
 
 
         </div>

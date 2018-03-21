@@ -40,7 +40,7 @@ class CommentsController extends Controller
 
             $comment = Comment::create([
                             'body'=> $request -> input('body'),
-                            'url'=> $request -> input('url'),
+                            'tag'=> $request -> input('tag'),
                             'user_id'=>Auth::user()->id,
                             'commentable_id'=> $request -> input('commentable_id'),
                             'commentable_type'=> $request -> input('commentable_type'),

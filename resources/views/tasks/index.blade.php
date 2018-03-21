@@ -8,18 +8,12 @@
       <div class="panel panel-primary">
         <div class="panel-heading">Tasks <a href="/tasks/create" class="btn btn-default btn-xs pull-right"> Add new task</a></div>
         <div class="panel-body">
-
-        {{--   <ul class="list-group">
-            @foreach($tasks as $task)
-            <li class="list-group-item"><a href="/tasks/{{$task->id}}"> {{$task->task_name}} </a></li>
-            @endforeach
-          </ul> --}}
            @foreach($tasks as $task)
           <div class="panel panel-info">
-            <div class="panel-heading"><a href="/tasks/{{$task->id}}">{{$task->task_name}} </a></div>
+            <div class="panel-heading"><strong><a style="text-decoration: none;" href="/tasks/{{$task->id}}">{{$task->task_name}} </a></strong></div>
             <div class="panel-body">
-             <p>Company : {{$task->company_id}}</p>
-             <p>Project : {{$task->project_id}}</p>
+             <p>Client : {{$task->company_name}}</p>
+             <p>Project : {{$task->project_name}}</p>
             </div>
           </div>
           @endforeach
