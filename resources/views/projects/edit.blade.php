@@ -33,8 +33,8 @@
               </div>
 
                <div class="form-group">
-                <label for="project-days">Days<span class="required">*</span></label>
-                <input placeholder="Enter days" id="project-name" name="days" spellcheck="false" class="form-control" value="{{$project->days}}" required autofocus>
+                <label for="project-days">Deadline</label>
+                <input type="text" id="project_deadline" name="project_deadline" class="form-control" style="width: 200px">
               </div>
               
 
@@ -43,5 +43,20 @@
               </div>
         </form>    
     </div>
+
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"></script>
+
+
+     <script>
+    $(function() {
+    $( "#project_deadline" ).datepicker({ dateFormat: 'yy-mm-dd',
+                                    changeMonth: true,
+                                    changeYear: true});
+                                    });
+                                </script>
 
 @endsection

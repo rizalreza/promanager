@@ -12,7 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -60,9 +63,7 @@
                                     Admin <span class="caret"></span>
                                 </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                   <li><a href="{{ route('users.index') }}">All Users</a></li> 
-                                   <li><a href="{{ route('roles.index') }}">All Roles</a></li> 
+                                <ul class="dropdown-menu" role="menu"> 
                                    <li><a href="{{ route('tasks.index') }}">All Tasks</a></li> 
                                    <li><a href="{{ route('projects.index') }}">All Projects</a></li> 
                                    <li><a href="{{ route('companies.index') }}">All Companies</a></li> 
@@ -110,6 +111,11 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
+    {{-- <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> --}}
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-1.10.2.js') }}"></script>
+
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
 </body>
 </html>

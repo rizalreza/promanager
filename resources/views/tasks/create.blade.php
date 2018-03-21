@@ -15,6 +15,13 @@
                 <input placeholder="Enter name" id="task-name" name="task_name" spellcheck="false" class="form-control" value="" required autofocus>
               </div>
 
+
+              <div class="form-group">
+                <label for="project-content">Description</label>
+                <textarea placeholder="Enter description" style="resize: vertical;" id="project-content" name="task_desc" rows="5" spellcheck="false" class="form-control autosize-target text-left" required autofocus>
+                </textarea>
+              </div>
+
               <div class="form-group">
                 <label for="">Company</label>
                 <select class="form-control company_name" name="company_id" id="company_id" required autofocus>
@@ -36,15 +43,9 @@
 
 
               <div class="form-group">
-                <label for="task-days">Days<span class="required">*</span></label>
-                <input placeholder="Enter name" id="task-days" name="days" spellcheck="false" class="form-control" value="" required autofocus>
+                <label for="task-days">Estimated<span class="required">*</span></label>
+               <input type="text" id="task_deadline" name="task_deadline" class="form-control" style="width: 200px">
               </div>
-
-              <div class="form-group">
-                <label for="task-hours">Hours<span class="required">*</span></label>
-                <input placeholder="Enter days" id="task-hours" name="hours" spellcheck="false" class="form-control" value="" required autofocus>
-              </div>
-
              
 
               <div class="form-group">
@@ -54,7 +55,8 @@
     </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> --}}
+<script src="{{ asset('js/jquery.min.js') }}"></script>"
        
 <script type="text/javascript">
   $(document).ready(function(){
@@ -96,5 +98,13 @@
 });
 
 </script>
+
+<script>
+    $(function() {
+    $( "#task_deadline" ).datepicker({ dateFormat: 'yy-mm-dd',
+                                    changeMonth: true,
+                                    changeYear: true});
+                                    });
+ </script>
 
 @endsection
