@@ -12,7 +12,7 @@ class Project extends Model
     	'project_desc',
     	'company_id',
     	'user_id',
-    	'days',
+    	'project_deadline',
     ];
 
     public function users(){

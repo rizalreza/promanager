@@ -19,7 +19,14 @@ class TasksController extends Controller
     public function index()
     {
          if(Auth::user()->role_id == 1 ){
-            $tasks = Task::all();
+            // $tasks = Task::all();
+
+            $tasks = DB::table('tasks')
+                    ->join('projects','tasks.project_id','=','projects.id')
+                    ->join('companies','tasks.company_id','=','companies.id')
+                    ->select('tasks.id','tasks.task_name','projects.project_name','companies.company_name')
+                    ->get();
+            // dd($tasks);
 
             return view('tasks.index',['tasks' => $tasks]);
       
@@ -52,7 +59,8 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Project $project)
+
     {
 
         if(Auth::check()){
@@ -79,14 +87,13 @@ class TasksController extends Controller
 
             $taskStore = Task::create([
                     'task_name' => $request -> input('task_name'),
+                    'task_desc' => $request -> input('task_desc'),
                     'project_id' => $request -> input('project_id'),
                     'company_id' => $request -> input('company_id'),
-                    'days' => $request -> input('days'),
-                    'hours' => $request -> input('hours'),
+                    'task_deadline' => $request -> input('task_deadline'),
                     'user_id' => Auth::user()->id,
                 ]);
 
-            dd($taskStore);
             if($taskStore){
                 return redirect()->route('tasks.index')->with('success','Task added successfully');
             }
@@ -101,9 +108,21 @@ class TasksController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show($id)
     {
-        //
+        // dd($id);
+      if(Auth::check()){
+
+         $task = DB::table('tasks')
+                ->join('projects','tasks.project_id','=','projects.id')
+                ->join('companies','tasks.company_id','=','companies.id')
+                ->where('tasks.id','=', $id)
+                ->select('tasks.id','tasks.task_name','tasks.task_deadline','tasks.task_desc','tasks.user_id','projects.project_name','companies.company_name')
+                ->first();
+            // dd($task);
+
+      }
+        return view('tasks.show', ['task' => $task]);
     }
 
     /**
@@ -132,23 +151,20 @@ class TasksController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        if(Auth::check()){
-
+        
             $taskUpdate = Task::where('id', $task->id)->update
                     ([
                     'task_name' => $request -> input('task_name'),
+                    'task_desc' => $request -> input('task_desc'),
                     'project_id' => $request -> input('project_id'),
                     'company_id' => $request -> input('company_id'),
-                    'days' => $request -> input('days'),
-                    'hours' => $request -> input('hours'),
-                    'user_id' => Auth::user()->id,
+                    'task_deadline' => $request -> input('task_deadline'),
+                    'user_id' => Auth::user()->id
                     ]);
-          
 
-            // dd($taskUpdate);
+          
             if($taskUpdate){
-                return redirect()->route('tasks.show')->with('success','Task updated successfully');
-            }
+                return redirect()->route('tasks.show', ['task'=>$task->id ])->with('success','Task updated successfully');
         }
 
          return back()->withInput()->with('errors', 'You could not have access');
@@ -163,6 +179,14 @@ class TasksController extends Controller
      */
     public function destroy(Task $task)
     {
+         
         //
+        $delete = Task::find( $task->id);
+        if ($delete->delete()) {
+            return redirect()->route('tasks.index')->with('success', 'Task deleted successfully !');
+        }
+
+        return back()->withInput->with('errors', 'Project could not be deleted');
+     
     }
 }

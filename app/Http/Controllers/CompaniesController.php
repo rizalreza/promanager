@@ -21,9 +21,9 @@ class CompaniesController extends Controller
         //
         if(Auth::check()){
       
-            // $companies = DB::table('companies')->where('user_id', Auth::user()->id )->get();
             $companies = Company::all();
-            return view('companies.index',['companies' => $companies]);
+            $projects = Project::all();
+            return view('companies.index',['projects'=> $projects, 'companies' => $companies]);
         }
 
         return view('auth.login');
