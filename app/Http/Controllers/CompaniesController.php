@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Project;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,17 +78,23 @@ class CompaniesController extends Controller
      */
     public function show(Company $company)
     {
-       if(Auth::check()){
-            $company = Company::find($company->id);
-        // $company = DB::table('companies')->where('id'), Auth::user()->id )->get();
+       if(Auth::user()->role_id == 1 ){
+
+         $company = Company::find($company->id);
+         $projects = DB::table('projects')
+                   ->where( 'company_id', $company->id)
+                   ->get();
+
+        return view('companies.show', ['company' => $company, 'projects' => $projects]);
+       }else{
+           $company = Company::find($company->id);
            $projects = DB::table('projects')->where([
                     ['user_id', Auth::user()->id],
                     ['company_id', $company->id]
                 ])->get();
 
-            // dd($company->projects);
             return view('companies.show', ['company' => $company, 'projects' => $projects]);
-        }
+        } 
 
         return view('auth.login');
     }

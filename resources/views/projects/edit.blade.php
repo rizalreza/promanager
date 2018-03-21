@@ -3,7 +3,7 @@
 
 @section('content')
 
-  
+<center><h2>Edit Project</h2></center>
 
     <div class="col-md-8 col-lg-8 col-sm-8 col-md-offset-2 col-lg-offset-2 col-sm-offset-2">
         <form method="post" action="{{route('projects.update',[$project->id])}}">
@@ -43,17 +43,5 @@
               </div>
         </form>    
     </div>
-
-   {{--  <div class="col-lg-3 col-md-3 col-sm-3 ">
-         <div class="sidebar-module">
-            <h4>Action</h4>
-            <ol class="list-unstyled">
-              <li><a href="/projects/{{$project->id}}/show">View Project</a></li>
-              <li><a href="/projects">Your Project</a></li>
-            </ol>
-          </div>        
-    </div>
-        --}}
-
 
 @endsection
