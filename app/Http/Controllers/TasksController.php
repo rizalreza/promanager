@@ -19,24 +19,30 @@ class TasksController extends Controller
     public function index()
     {
          if(Auth::user()->role_id == 1 ){
-            // $tasks = Task::all();
+
 
             $tasks = DB::table('tasks')
                     ->join('projects','tasks.project_id','=','projects.id')
                     ->join('companies','tasks.company_id','=','companies.id')
                     ->select('tasks.id','tasks.task_name','projects.project_name','companies.company_name')
                     ->get();
-            // dd($tasks);
+          
 
             return view('tasks.index',['tasks' => $tasks]);
       
             
         } else {
+
+
+             $tasks = DB::table('tasks')
+                    ->join('projects','tasks.project_id','=','projects.id')
+                    ->join('companies','tasks.company_id','=','companies.id')
+                    ->select('tasks.id','tasks.task_name','tasks.user_id','projects.project_name','companies.company_name')
+                    ->where('tasks.user_id', Auth::user()->id )
+                    ->get();
             
-            $tasks = DB::table('tasks')->where('user_id', Auth::user()->id )->get();
+     
             return view('tasks.index',['tasks' => $tasks]);
-           // dd($projectAll);
-           
 
         }
 
@@ -49,7 +55,6 @@ class TasksController extends Controller
          $data = Project::select('project_name','id')->where('company_id',$request->id)->take(100)->get();
          // $prjct = $projects->toJson();       
          return response()->json($data);
-
 
     }
 
@@ -64,6 +69,7 @@ class TasksController extends Controller
     {
 
         if(Auth::check()){
+
             $companies = Company::all();
             $projects = Project::all();
 
