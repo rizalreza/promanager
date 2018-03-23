@@ -13,7 +13,7 @@ This repo contains an simple Project Management App, that's build with Laravel 5
 
 ## Use Case Diagram
 
-![UseCase](https://i.imgur.com/EBniRM8.png)
+![UseCase](https://i.imgur.com/kUe1ZNZ.png)
 
 ## How To Use
 
