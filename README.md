@@ -11,6 +11,10 @@ This repo contains an simple Project Management App, that's build with Laravel 5
 * Ajax select dropdwon and Datepicker
 * CRUD Companies, Projects, Tasks, and Comments
 
+## Use Case Diagram
+
+![UseCase](https://i.imgur.com/EBniRM8.png)
+
 ## How To Use
 
 **Clone this Repo**
